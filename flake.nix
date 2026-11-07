@@ -29,6 +29,17 @@
               statusline.lualine.enable = true;
               telescope.enable = true;
               autocomplete.nvim-cmp.enable = true;
+
+              luaConfigRC.cmp-sources = ''
+                local cmp = require('cmp')
+                cmp.setup({
+                  sources = cmp.config.sources({
+                    { name = 'nvim_lsp' }, -- LSP suggesties
+                    { name = 'path' },     -- Bestanden en mappen paden (typ / of ./ om te activeren)
+                    { name = 'buffer' },   -- Tekst uit huidige buffer
+                  })
+                })
+              '';
               # Enable core LSP framework features
               lsp = {
                 enable = true;
