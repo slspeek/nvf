@@ -19,7 +19,7 @@
         inherit pkgs;
         modules = [
           {
-            config.vim = {
+            vim = {
               theme = {
                 enable = true;
                 name = "tokyonight";
