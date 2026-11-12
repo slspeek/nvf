@@ -65,6 +65,7 @@
               };
 
               options = {
+                timeoutlen = 1000;
                 tabstop = 2;
                 shiftwidth = 2;
                 expandtab = true;
