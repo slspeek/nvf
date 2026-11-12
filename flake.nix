@@ -79,8 +79,10 @@
     in
     {
       # Access via `nix build` or `nix run`
-      packages.${system}.default = customNeovim.neovim;
-      # --- VOEG DEZE META MET LICENTIE TOE ---
-      meta.license = nixpkgs.lib.licenses.gpl3Only;
+      packages.${system}.default = (customNeovim.neovim).overrideAttrs (oldAttrs: {
+        meta = (oldAttrs.meta or { }) // {
+          license = pkgs.lib.licenses.gpl3Only;
+        };
+      });
     };
 }
