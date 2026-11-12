@@ -82,6 +82,7 @@
       packages.${system}.default = (customNeovim.neovim).overrideAttrs (oldAttrs: {
         meta = (oldAttrs.meta or { }) // {
           license = pkgs.lib.licenses.gpl3Only;
+          platforms = pkgs.lib.platforms.unix;
         };
       });
     };
