@@ -25,7 +25,7 @@
                 name = "tokyonight";
                 style = "night";
               };
-
+              tabline.nvimBufferline.enable = true;
               statusline.lualine.enable = true;
               telescope.enable = true;
               autocomplete.nvim-cmp.enable = true;
@@ -65,13 +65,36 @@
               };
 
               options = {
-                timeoutlen = 1000;
+                timeoutlen = 2000;
                 tabstop = 2;
                 shiftwidth = 2;
                 expandtab = true;
                 number = true;
                 relativenumber = true;
               };
+              keymaps = [
+                {
+                  key = "<C-Tab>";
+                  mode = "n";
+                  silent = true;
+                  action = ":bn<CR>";
+                  desc = "Next buffer";
+                }
+                {
+                  key = "<C-S-Tab>";
+                  mode = "n";
+                  silent = true;
+                  action = ":bp<CR>";
+                  desc = "Previous buffer";
+                }
+                {
+                  key = "<leader>fk";
+                  mode = "n";
+                  silent = true;
+                  action = ":Telescope keymaps<CR>";
+                  desc = "Open keymaps in telescope";
+                }
+              ];
             };
           }
         ];
