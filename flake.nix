@@ -14,7 +14,15 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-
+      texEnv = pkgs.texlive.combine {
+        inherit (pkgs.texlive)
+          scheme-basic
+          latexmk
+          amsmath
+          ec
+          cm-super
+          ;
+      };
       customNeovim = nvf.lib.neovimConfiguration {
         inherit pkgs;
         modules = [
@@ -59,9 +67,30 @@
                     type = [ "nixfmt" ]; # Uses nixfmt-rfc-style package from nixpkgs
                   };
                 };
+                # LaTeX / TeX module configuration
+                tex = {
+                  enable = true;
+                  lsp = {
+                    enable = true;
+                    servers = [ "texlab" ];
+                  };
+                  treesitter = {
+                    enable = true;
+                  };
+                };
 
                 markdown.enable = true;
                 bash.enable = true;
+              };
+              extraPlugins = {
+                vimtex = {
+                  package = pkgs.vimPlugins.vimtex;
+                  setup = ''
+                    vim.g.vimtex_view_method = 'zathura'
+                    vim.g.vimtex_compiler_method = 'latexmk'
+                    vim.g.vimtex_quickfix_open_on_warning = 0
+                  '';
+                };
               };
 
               options = {
@@ -73,6 +102,20 @@
                 relativenumber = true;
               };
               keymaps = [
+                {
+                  key = "<localleader>ll";
+                  mode = "n";
+                  silent = true;
+                  action = "<cmd>VimtexCompile<CR>";
+                  desc = "VimTeX compile toggle";
+                }
+                {
+                  key = "<localleader>lv";
+                  mode = "n";
+                  silent = true;
+                  action = "<cmd>VimtexView<CR>";
+                  desc = "VimTeX view PDF";
+                }
                 {
                   key = "<C-Tab>";
                   mode = "n";
@@ -94,6 +137,11 @@
                   action = ":Telescope keymaps<CR>";
                   desc = "Open keymaps in telescope";
                 }
+              ];
+              extraPackages = [
+                texEnv
+                pkgs.texlab
+                pkgs.zathura
               ];
             };
           }
