@@ -25,6 +25,9 @@
                 name = "tokyonight";
                 style = "night";
               };
+              binds.whichKey = {
+                enable = true;
+              };
               tabline.nvimBufferline.enable = true;
               statusline.lualine.enable = true;
               telescope.enable = true;
