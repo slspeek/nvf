@@ -27,6 +27,12 @@
               };
               binds.whichKey = {
                 enable = true;
+                setupOpts = {
+                  windows = true;
+                  text_objects = true;
+                  z = true;
+                  nav = true;
+                };
               };
               tabline.nvimBufferline.enable = true;
               statusline.lualine.enable = true;
